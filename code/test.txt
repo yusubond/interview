@@ -1,0 +1,14 @@
+Thread:
+#0  0x0000000000c8dc41 in func7
+#1  0x00000000004674c5 in func8
+#2  0x00000000004585d8 in func9
+#3  0x000000000046bac4 in a_very_long_function_name_across_lines_10
+#4  0x000000000046ba51 in another_very_long_function_name_across_more_lines_11
+#5  0x000000000046ba02 in func12
+
+
+Thread:
+#0  0x0000000000c8dc41 in func13
+#1  0x00000000004674c5 in func14
+#2  0x00000000004585d8 in func15
+#3  0x000000000046ba02 in func16
