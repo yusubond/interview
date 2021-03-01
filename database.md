@@ -18,9 +18,13 @@
 6. **FULLTEXT（全文索引）**：全文索引类型为FULLTEXT，在定义索引的列上支持值的全文查找，允许在这些索引列中插入重复值和空值。全文索引可以在CHAR、VARCHAR或者TEXT类型的列上创建
 7. **SPATIAL（空间索引）**：空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有4种，分别是GEOMETRY、POINT、LINESTRING和POLYGON。MySQL使用SPATIAL关键字进行扩展，使得能够用于创建正规索引类似的语法创建空间索引。创建空间索引的列必须声明为NOT NULL
 
-
-
 参考资料：
 
 mysql索引：https://www.cnblogs.com/zsql/p/13808417.html
+
+
+
+2、Redis的主从复制机制
+
+
 

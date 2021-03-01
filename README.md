@@ -9,15 +9,33 @@
 
 ### [计算机操作系统](os.md)
 
+1、进程，线程，上下文切换
 
+2、
 
 ### [计算机网络](network.md)
 
+- TCP三次握手和四次挥手
 
+- 为什么要有TIME_WAIT状态
+
+- 为什么会有UDP协议
+
+- TCP的流量控制
+
+- http与https的区别
+
+- https的加密过程
 
 ### [Golang语言](golang.md)
 
+# Golang
 
+1、Map的底层实现？
+
+2、Map的扩容是怎么实现的？
+
+3、atmoic原子操作
 
 ### [GRPC](grpc.md)
 
@@ -38,6 +56,14 @@
 6、Resubmit & Recirculate
 
 ### [数据库](database.md)
+
+1、MySQL索引
+
+2、Redis的主从复制机制
+
+
+
+#### Redis
 
 
 
