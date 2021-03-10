@@ -25,3 +25,8 @@ func7 <- func8 <- func9 <- a_very_long_function_name_across_lines_10 <- another_
 func13 <- func14 <- func15 <- func16
 ```
 
+- 动态规划
+
+给定一个int数组A，数组中元素互不重复，给定一个数x，求所有求和能得到x的数字组合，组合中的元素来自A，可重复使用 
+
+- 非递归层序遍历二叉树，3月5日 腾讯
