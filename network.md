@@ -118,7 +118,7 @@ IP 选路的策略和优先级，即搜索路由表的顺序为
 
 **路由表**
 
-![img](./images/webp2.png)
+![images](images/webp2.png)
 
 Flags 各项的含义：
 
