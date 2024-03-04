@@ -2,9 +2,70 @@
 
 > 1、Map的底层实现？
 
+Go 中 map 的底层数据结构是**哈希表**而非 C++ 中的**红黑树**，这样的设计是**为了加快查找过程**，如果使用红黑树的话，插入和删除操作需要对树结构进行旋转导致性能降低，而且查找操作需要遍历树，这相对于用哈希表实现 map 来说是慢的；基于哈希表实现 map 也有缺点，那就是占用内存高。
+
+
+
+
+
 
 
 > 2、Map的扩容是怎么实现的？
+
+当哈希表超过了负载因子 6.5 时，或者存在太多溢出桶则需要扩容。
+
+```go
+ // 判断是否处于扩容的状态
+// If we hit the max load factor or we have too many overflow buckets,
+// and we're not already in the middle of growing, start growing.
+if !h.growing() && (overLoadFactor(h.count+1, h.B) || tooManyOverflowBuckets(h.noverflow, h.B)) {
+	hashGrow(t, h)
+	goto again // Growing the table invalidates everything, so try again
+}
+```
+
+
+
+当负载因子超过 6.5 时，说明此时哈希表中的桶将要填满，为了保证查询和插入的效率，需要扩容。
+
+负载因子的计算方式如下：`loadfactor = count/(1<<B)`
+
+```go
+// 计算当前哈希表的负载因子是否超过 6.5
+func overLoadFactor(count int, B uint8) bool {
+	return count > bucketCnt && uintptr(count) > loadFactorNum*(bucketShift(B)/loadFactorDen)
+}
+```
+
+
+
+**tooManyOverflowBuckets**
+
+该函数主要判断当前哈希表中是否存在过多的溢出桶。
+
+这种情况一般发生在不断地插入、删除元素，导致创建了很多溢出桶，但由于存在删除操作可能会使得负载因子始终小于 6.5。
+
+当正常桶满时，会额外创建溢出桶保存数据，并链接到正常桶的链表尾部，所以如果存在大量的溢出桶，那么查询的时候就会遍历溢出桶，也会消耗过多的时间。
+
+所以针对这种情况，当溢出桶超过某个阈值时也需要进行扩容。
+
+```go
+func tooManyOverflowBuckets(noverflow uint16, B uint8) bool {
+	// If the threshold is too low, we do extraneous work.
+	// If the threshold is too high, maps that grow and shrink can hold on to lots of unused memory.
+	// "too many" means (approximately) as many overflow buckets as regular buckets.
+	// See incrnoverflow for more details.
+	if B > 15 {
+		B = 15
+	}
+	// The compiler doesn't see here that B < 16; mask B to generate shorter shift code.
+	return noverflow >= uint16(1)<<(B&15)
+}
+```
+
+
+
+
 
 使用哈希表的目的就是要快速查找目标key，然而，随着向map中添加的key越来越多，key发生碰撞的概率也越来越大。bucket中的8个cell会被越塞越满，查找，插入，删除key的效率也会越来越低。
 
